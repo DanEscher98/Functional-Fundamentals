@@ -1,0 +1,68 @@
+{
+	"Basics": {
+		"Atoms": {
+			"F"		: "λab.b",
+			"T"		: "λab.a",
+			"0"		: "λsx.x",
+			"1"		: "λsx.(s x)"
+		},
+		"Logic": {
+			"If"	: "λeab.(e a b)",
+			"NOT"	: "λa.(a F T)",
+			"AND"	: "λab.(a b F)",
+			"OR"	: "λab.(a T b)",
+			"XOR"	: "λab.(a (b F T) (b T F))"
+		},
+		"Data": {
+			"Pair"	: "λxyf.(f x y)",
+			"Fst"	: "λp.(p (λab.a))",
+			"Snd"	: "λp.(p (λab.b))",
+			"Proj"	: "",
+			"Shft"	: "λp.(Pair (Snd p) (SUCC (Snd p)))"
+		},
+		"Values": {
+			"Id"	: "λu.u",
+			"Const"	: "λxu.x",
+			"Value"	: "λxh.(h x)",
+			"Extract":"λv.(v Id)",
+			"Inc"	: "λfg.Value (g f)"
+		},
+		"Arithmetic": {
+			"SUCC"	: "λnzx.(z (n z x))",
+			"ADD"	: "λab.(a SUCC b)",
+			"MUL"	: "λab.(a (ADD b) 0)",
+			"POW"	: "",
+			"PRED"	: [	"λnzx.(Extract (n (Inc z) (Const x)))",
+						"λn.(Fst (n Shft (Pair 0 0))",
+						"λnzx.(n (λgh.h (g z)) (λu.x) (λu.u))"],
+			"SUB"	: "λab.(a PRED b)",
+			"QOT"	: "Θ (λfab.((LE a b) 0 (MUL n (f (PRED n)))))",
+			"REM"	: "Y (λfab.((LE a b) a (f (SUB a b) b)))"
+		},
+		"Functions": {
+			"Fact"	: "Y (λfn.(IsZero n 1 (MUL n (f (PRED n)))))",
+			"GCD"	: "Y (λfab.(IsZero b a (f b (REM a b))))",
+			"Fib"	: "Y (λfn.(IsZero n 0 (IsZero (PRED n) 1 (ADD (PRED n) (2 PRED n)))))",
+			"Colltz": "Y (λfn.(IsZero n 0 (SUCC (f ((IsZero (REM n 2) (QOT n 2) (SUCC (MUL 3 n))))))))"
+		},
+		"Conditionals": {
+			"IsZero": "λn.(n (λx.F) T)",
+			"IsEven": "λn.(n Not T)",
+			"IsOdd"	: "λn.(n Not F)",
+			"LEQ"	: "λab.(IsZero (SUB a b))",
+			"GEQ"	: "λab.(IsZero (SUB b a))",
+			"EQ"	: "λab.(AND (LEQ a b) (LEQ b a))",
+			"GE"	: "λab.(NOT (GEQ b a))",
+			"LE"	: "λab.(NOT (LEQ b a))"
+		},
+		"Combinator": {
+			"Y"		: "λh.(λy.h(yy))(λy.h(yy))",
+			"Z"		: "λh.(λy.h(λx.yyx))(λy.h(λx.yyx))"
+		},
+		"Identities": [
+			"(Inc f) (x)       = Value (x f)",
+			"(Inc f) (Value x) = value (f x)",
+			"extract (Value x) = x"
+		]
+	}
+}
