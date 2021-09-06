@@ -21,6 +21,7 @@
 # Other files "
 ###############
 *.vim
-*.pdf
 *.swp
+*.pdf
 *.png
+*.svg
