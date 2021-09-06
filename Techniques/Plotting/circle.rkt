@@ -22,3 +22,6 @@
 	  #:legend-anchor 'top-right
 	  #:out-file "circle.svg")
 
+
+; The Ciclotoid
+(define (ciclotoid t) @${ vector[r*(t - sin[t]), r*(1 - cos[t])] }) 
