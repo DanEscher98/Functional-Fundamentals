@@ -1,5 +1,5 @@
 #lang at-exp racket
-(require infix plot)
+(require infix plot racket/draw)
 
 ; Golden spiral
 (define golden
@@ -14,3 +14,11 @@
 	  #:title "The Golden Spiral"
 	  #:x-label #f #:y-label #f
 	  #:out-file "golden-spiral.svg")
+
+; Fibonacci spiral
+(define WIDTH 600)
+(define HEIGTH 400)
+(define UNIT 6)		; pixels in unit-width square
+(define OFFSET-X 140)
+(define OFFSET-Y 75)
+
