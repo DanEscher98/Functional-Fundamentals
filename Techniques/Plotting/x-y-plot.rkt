@@ -27,3 +27,12 @@
 		#:y-label #f
 		#:legend-anchor 'bottom-left
 		#:out-file "Sine-and-Square.png") 
+
+(define pts (for/list ([i (in-range 0 6)]) (vector i (sqr i))))
+
+(plot (list (axes)
+			(lines pts #:color "green" #:width 2)
+			(points pts #:color "black" #:fill-color "black"))
+	  #:x-min -0.5 #:x-max 5.5
+	  #:y-min -0.5 #:y-max 26
+	  #:out-file "segmented.svg")
