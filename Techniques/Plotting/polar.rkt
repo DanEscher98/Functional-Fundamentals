@@ -19,7 +19,7 @@
 	 [plot-x-label #f]
 	 [plot-y-label #f])
 
-	(for/list ([k (in-range 1 5 0.5)])
+	(for/list ([k (in-range 1 5 1)])
 		(plot (list
 				(polar (lambda (t) (rose k t)) 0 (* 4 pi)))
 			  #:x-min -1 #:x-max 1
