@@ -2,26 +2,30 @@
 
 (require infix plot)
 
-(define r 30)
-(define off (+ 5 (* 2 r)))
-
-; algebraic half-circle
-(define (c1 x) @${ sqrt[r^2 - x^2]})
-(define (c2 x) @${-sqrt[r^2 - x^2]})
-
-; parametric circle
-(define (cp t) @${ vector[off + r*cos[t], r*sin[t]] })
-
-
-(plot (list (axes)
-			(function c1 (- r) r #:color "blue" #:label "c1")
-			(function c2 (- r) r #:color "red"  #:label "c2")
-			(parametric cp 0 (* 2 pi) #:color "green" #:label "cp" #:width 2))
-	  #:x-min (- r) #:x-max (+ off r)
-	  #:y-min (- r) #:y-max (+ off r)
-	  #:legend-anchor 'top-right
-	  #:out-file "circle.svg")
-
+(define r 20)
+(define R (* r 10))
 
 ; The Ciclotoid
-(define (ciclotoid t) @${ vector[r*(t - sin[t]), r*(1 - cos[t])] }) 
+(define (ciclotoid t) @${ vector[r*(t - sin[t]), r*(1 - cos[t])] })
+
+(plot (list (axes)
+			(parametric ciclotoid 0 (* 2 pi) #:color "blue"))
+	  #:x-min 0 #:x-max (* r 2 pi)
+	  #:y-min 0 #:y-max (* r 2 pi)
+	  #:title "Ciclotoid"
+	  #:out-file "ciclotoid.svg")
+
+; The Hipocycloid
+(define (circle t) @${ vector[R*cos[t], R*sin[t]] })
+(define (hypocycloid phi)
+	@${ vector[
+			   (R-r)*cos[phi] + r*cos[(R-r)/r * phi],
+			   (R-r)*sin[phi] - r*sin[(R-r)/r * phi]] })
+
+(plot (list	(axes)
+			(parametric circle 0 (* r 2 pi) #:color "black" #:width 2)
+			(parametric hypocycloid 0 (* r 2 pi) #:color "blue" #:widht 1))
+	  #:x-min (- -10 R) #:x-max (+ 10 R)
+	  #:y-min (- -10 R) #:y-max (+ 10 R)
+	  #:title "Hypocycloid"
+	  #:out-file "hypocycloid.svg")
