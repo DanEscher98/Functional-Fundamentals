@@ -24,7 +24,7 @@
 				#:fill-color "red"))))
 
 ; Plot section
-(plot-decorations? #t)
+(plot-decorations? #f)
 (define (cycloid-plot dc)
 	(plot/dc (append (list (axes)
 						(parametric circle 0 (* 2 pi) #:color "green")
@@ -38,7 +38,7 @@
 	(new frame%
 		 [label "The Cycloid"]
 		 [width 350]
-		 [height 250]))
+		 [height 200]))
 
 (define canvas
 	(new canvas% [parent main-frame]
