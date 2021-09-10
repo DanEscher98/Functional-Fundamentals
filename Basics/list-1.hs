@@ -1,7 +1,7 @@
 module ListasBasicas where
 {-
 funciones implementadas:
-    head, tail, init, last, drop, take, reverse
+    head, tail, init, last, drop, take, reverse, concat
     dropWhile, takeWhile, filter, splitAt
     elem, noElem, all, any, filter, length
     foldl, foldr, scanr, map, iterate, until
@@ -48,8 +48,11 @@ tira _ _  = error "Argumento negativo"
 
 -- Equivalente a reverse
 revertir :: [a] -> [a]
-revertir []     = []
-revertir (x:xs) = revertir xs ++ [x]
+revertir = foldl (flip (:)) []
+
+-- Equivalente a (++)
+concatena :: [a] -> [a] -> [a]
+concatena xs ys = foldr (:) ys xs
 
 -- Equivalente a splitAt
 separaEn :: Int -> [a] -> ([a], [a])
@@ -120,13 +123,14 @@ algunoR f [x]    = f x
 algunoR f (x:xs) = f x || algunoR f xs
 
 -- Equivalente a foldl
-pliegaI :: (a -> a -> a) -> a -> [a] -> a
+pliegaI :: (b -> a -> b) -> b -> [a] -> b
 pliegaI _ e []     = e
 pliegaI f e (x:xs) = pliegaI f (f e x) xs
 
 -- Equivalente a foldr
-pliegaD :: (a -> a -> a) -> a -> [a] -> a
-pliegaD f e l = pliegaI f e (reverse l)
+pliegaD :: (a -> b -> b) -> b -> [a] -> b
+pliegaD _ e []     = e
+pliegaD f e (x:xs) = f x (foldr f e xs)
 
 -- Equivalente a scanr
 escaneaI :: (a -> a -> a) -> a -> [a] -> [a]
