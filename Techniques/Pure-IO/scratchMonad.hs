@@ -37,8 +37,10 @@ say3 :: String -> Maybe String
 say3 text
     | not . null $ text = Just ("Hello " ++ text)
     | otherwise         = Nothing
+-- (Just "World") >>= say3
 
 say4 :: String -> String -> Maybe String
 say4 text greet
     | (not . any null) [text, greet]    = Just (greet ++ text)
     | otherwise                         = Nothing
+-- Just "Hi " >>= say4 "pal," >>= say4 " How are you?"
