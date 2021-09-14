@@ -16,7 +16,13 @@ author: Daniel Sánchez
 - `(>>=)` = Operator `bind`, makes available the result of the previous
     computation to the next expression
 - `(=<<)` = The same as operator `bind`, but with right associativity
+- `(<$>)` = Functor; this operator wraps the value. The infix of `fmap`
+- `(<*>)` = Applicative; this also wraps the function
+
+### In Control.Monad
 - `(<=<)` = Allows do compositions of monadic computations
 - `(>=>)` = The same as `(<=<)` but with left associativity
-- `(<$>)` = Functor
-- `(<*>)` = Applicative
+
+### In Data.Function
+- `(<$)` = 
+- `($>)` = 

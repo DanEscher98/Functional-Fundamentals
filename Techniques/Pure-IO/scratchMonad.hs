@@ -38,9 +38,28 @@ say3 text
     | not . null $ text = Just ("Hello " ++ text)
     | otherwise         = Nothing
 -- (Just "World") >>= say3
+-- ["World"] >>= say1
+-- ["World", "Lady"] >>= say2 "Hello"
 
 say4 :: String -> String -> Maybe String
 say4 text greet
     | (not . any null) [text, greet]    = Just (greet ++ text)
     | otherwise                         = Nothing
 -- Just "Hi " >>= say4 "pal," >>= say4 " How are you?"
+
+say5 :: String -> [String]
+say5 str
+    | not . null $ str  = ["Hello " ++ str]
+    | otherwise         = []
+-- map ("Hello " ++) ["John", "Liz"]
+-- ["John", "Liz"] >>= say5
+
+say6 :: String -> String -> [String]
+say6 greet str = [greet ++ " " ++ str | not . any null $ [greet, str]]
+-- (say6 "Hello" =<< ["World", "Lady"]) >>= flip say6 "Good morning"
+
+say7 :: [String]
+say7 = do
+    x <- ["World", "Lady"]
+    y <- say6 "Hello" x
+    say6 y "Good morning"
