@@ -93,7 +93,6 @@ return x >>= f          == f x
 m >>= (\y -> g y >>= f) == (m >>= g) >>= f
 ```
 
-
 ## References
 
 - [Peeling the banana: Recursion Schemes from first principles](https://www.youtube.com/watch?v=XZ9nPZbaYfE)

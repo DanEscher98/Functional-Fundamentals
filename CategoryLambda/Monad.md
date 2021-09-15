@@ -47,6 +47,9 @@ fail    :: String -> m a
     the source category to the composition operator in the destination 
     category.
 
+## The Applicative Laws for functions
+- 
+
 ## Syntax rules for `do`
 ```haskell
 do { x }            --> x
@@ -58,13 +61,12 @@ do { let <declarations>; xs }
 
 ## Implementation of `return`, `bind` and `then`
 ```haskell
-return :: a -> IO a
-return x = \i0 -> (x, i0)
+return  :: (Monad m) => a   -> m a
+return x = State $ \s -> (x, s)
 
-(>>=)   :: IO a -> (a -> IO b) -> IO b
-m >>= k = \i0 ->    let (x, i1) = m i0 in
-                    let (y, i2) = k x i1 in 
-                    (y, i2)
+(>>=)   :: (Monad m) => m a -> (a -> m b) -> m b
+m >>= k  = State $ \s -> let (a, s') = runState m s
+                         in runState (k a) s'
 ```
 
 ## Functors and Application
@@ -87,8 +89,7 @@ class Functor f where
 
 **Applicative**: Map function in a context to the value in a context.
 Can be chained together. All Applicative instances must also be Functor
-instances. Given that, with Applicative we can apply function in a context 
-to the value in a context.
+instances.
 
 ```haskell
 class (Functor f) => Applicative f where
