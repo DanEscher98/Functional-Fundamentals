@@ -49,4 +49,48 @@ emphasizes:
     category.
 
 ## The Application Laws
-- 
+```haskell
+pure <*> id x   == x
+pure (g x)      == pure g <*> pure x
+x <*> pure y    == pure (\g -> g y) <*> x
+x <*> y <*> z   == (pure (.) <*> x <*> y) <*> z
+
+-- Proof of 1st law
+pure <*> id x
+(\x -> (\y -> x)) id <*> x  -- by def of pure
+(\y -> id) <*> x
+\z -> (\y -> id) z (x z)    -- by def of <*>
+\z -> id (x z)              -- using partial function application
+\z -> x z
+
+-- Prof of 2nd law
+pure (g x)                  -- LEFT HAND SIDE
+\y -> g x                   -- by def of pure
+pure g <*> pure x           -- RIGHT HAND SIDE
+\y -> g <*> \z -> x         -- by def of pure
+\t -> (\y -> g) t ((\z -> x) t) -- by def of <*>
+\t -> (\y -> g) t x
+\t -> g x
+
+-- Proof of 3rd law
+x <*> pure y                -- LEFT HAND SIDE
+x <*> \z -> y
+\t -> x t ((\z -> y) t)     -- by def of <*>
+\t -> x t y
+pure (\g -> g y) <*> x      -- RIGHT HAND SIDE
+\z -> (\g -> g y) <*> x
+\t -> (\z -> (\g -> g y)) t (x t)-- by def of <*>
+\t -> (\g -> g y) (x t)
+\t -> x t y
+
+-- Proof of 4th law
+x <*> (y <*> z)             -- LEFT HAND SIDE
+x <*> (\t -> y t (z t))
+\g -> x g ((\t-> y t (z t)) g)
+\g -> x g (y g (z g))
+(pure (.) <*> x <*> y) <*> z-- RIGHT HAND SIDE
+((\t -> (.) (x t)) <*> y) <*> z
+(\g -> ((.) (x g)) (y g)) <*> z
+\v -> x v ((y v) (z v))
+
+``` 

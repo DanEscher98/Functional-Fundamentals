@@ -96,4 +96,4 @@ m >>= (\y -> g y >>= f) == (m >>= g) >>= f
 ## References
 
 - [Peeling the banana: Recursion Schemes from first principles](https://www.youtube.com/watch?v=XZ9nPZbaYfE)
-- [The Category design Pattern](https://www.haskellforall.com/2012/08/the-category-design-pattern.html)
+- [The Category design Pattern](https://www.haskellforall.com/2012/08/the-category-design-pattern.htm
