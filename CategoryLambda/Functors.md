@@ -3,9 +3,9 @@ title: Functors and Applicatives
 author: Daniel Sanchez
 ---
 
-## Functors and Application
+## Functors
 
-**Functors**: Uniform action over a parametrized type, generalizing the map
+Uniform action over a parametrized type, generalizing the map
 function on lists. A functor transforms one category into another category.
 Functors arise every time we write compatibility layers and adapters between
 different pieces of software. In Haskell, the Functor class only encompass 
@@ -21,9 +21,36 @@ class Functor f where
 -- map (f . g)  == map f . map g    composition
 ```
 
-**Applicative**: Map function in a context to the value in a context.
-Can be chained together. All Applicative instances must also be Functor
-instances.
+It is possible generalize the `fmap` function.
+
+```haskell
+pure :: a -> f a
+(<*>):: f (a -> b) -> f a -> f b
+
+fmap0 :: a -> f a
+fmap0 = pure
+
+fmap1 :: (a -> b) -> f a -> f b
+fmap1 g x = pure g <*> x
+
+fmap2 :: (a -> b -> c) -> f a -> f b -> b c
+fmap2 g x y = pure g <*> x <*> y
+```
+
+### The Functor Laws (covariant functor laws)
+- The _identity law_: must transform the identity in the source 
+    category to the identity in the destination category.
+- The _compose law_: must transform the composition operator in
+    the source category to the composition operator in the destination 
+    category.
+
+---
+
+## Applicative
+
+Map function in a context to the value in a context. The `<*>` operator
+generalize the `fmap` function. Can be chained together. All Applicative
+instances must also be Functor instances.
 
 ```haskell
 class (Functor f) => Applicative f where
@@ -41,14 +68,7 @@ emphasizes:
 - specialization over monolithic frameworks
 - short-term completion over future-proofing
 
-## The Functor Laws (covariant functor laws)
-- The _identity law_: must transform the identity in the source 
-    category to the identity in the destination category.
-- The _compose law_: must transform the composition operator in
-    the source category to the composition operator in the destination 
-    category.
-
-## The Application Laws
+### The Application Laws
 ```haskell
 pure <*> id x   == x
 pure (g x)      == pure g <*> pure x
