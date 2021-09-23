@@ -12,9 +12,7 @@ add a (S b) = add (S a) b
 mul :: Numero -> Numero -> Maybe Numero
 mul Zero _  = Just Zero
 mul _ Zero  = Just Zero
-mul a (S b) = do
-    x <- mul a b
-    add a x
+mul a (S b) = mul a b >>= add a
 
 dec :: Numero -> Maybe Numero
 dec Zero  = Nothing

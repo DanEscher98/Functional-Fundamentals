@@ -11,6 +11,18 @@ Monad type-class helps us by automatically handling the context for us.
 
 A monad consists of three objects, which must satisfy the _monad laws_.
 
+## What's the point of monads?
+1. Supports *pure* programming with *effects*.
+2. Use of monads is *explicit* in types.
+3. Can generalise functions to *any* effect.
+
+**Type**                        | **Effect**
+:---:                            | :---
+`a -> Maybe b`                  | Exceptions
+`a -> List b`                   | Non-determinism
+`a -> ST b`                     | Internal state
+`a -> IO b`                     | Input/Output
+`((a -> r) -> r) -> Cont r a`   | Promises
 
 ## The three basic objects
 - A type constructor **M**, such that for any type **a**, the type 

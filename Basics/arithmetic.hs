@@ -1,5 +1,6 @@
 module Aritmetica where
-import           Data.Maybe (fromJust)
+import           Data.Function (fix)
+import           Data.Maybe    (fromJust)
 -- :l file
 
 -- Equivalente a (+)
@@ -42,6 +43,15 @@ reminder a b = snd (fromJust (division a b))
 factorial :: Int -> Int
 factorial 0 = 1
 factorial n = n * factorial (pred n)
+
+primos :: [Int]
+primos = criba [2..] where
+    criba []     = []
+    criba (n:ns) = n : criba (auxDrop n ns)
+    auxDrop e = filter (\x -> mod x e /= 0)
+
+esPrimo :: Int -> Bool
+esPrimo x = x == head (dropWhile (<x) primos)
 
 permut :: Int -> Int -> Int
 permut n k = div (factorial n) (factorial (n-k))
