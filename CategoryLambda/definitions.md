@@ -1,9 +1,8 @@
 ---
 title: Definitions of Abstract Algebra
 author: Daniel Sanchez
-include-headers:
-    - 
 ---
+
 ## Algebras
 - An algebra is defined by:
     1. A set of *values*
@@ -22,7 +21,8 @@ include-headers:
 
 ## Examples
 - Z, Q, R and C are abelian groups under addition,
-    and abelian monoids under multiplication. $\{0\}$.
+    and abelian monoids under multiplication, because the
+    $0$ doesn't have inverse.
 - The set of all $2 x 2$ matrices with real entries
     form a monoid under multiplication (many singular matrices).
 - The dihedral group:
@@ -74,4 +74,3 @@ include-headers:
     $n$ containers with a $n$-ary function.
 - **Monads** are types `m` where we can *sequentially compose*
     functions of the form `a -> m`.
-
