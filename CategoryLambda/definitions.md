@@ -1,44 +1,24 @@
 ---
 title: Definitions of Abstract Algebra
 author: Daniel Sanchez
+include-headers:
+    - 
 ---
 ## Algebras
-An algebra is defined by:
-- A set of *values*
-- A set of *operations*
-- A set of *laws*
+- An algebra is defined by:
+    1. A set of *values*
+    2. A set of *operations*
+    3. A set of *laws*
+- A *semigroup*, *monoid* or *group* is a kind of algebra with
+    a defined binary operator $\ast$
 
-    $\dot$      | Semigrup  | Monoid    | Group     | Abelian
-:---:           | :---:     | :---:     | :---:     | :---:
-is closed       |   **T**   |   **T**   |   **T**   |   **T**
-is associative  |   **T**   |   **T**   |   **T**   |   **T**
-has identity    |   F       |   **T**   |   **T**   |   ?
-has inverse     |   F       |   F       |   **T**   |   ?
-is commutative  |   F       |   F       |   F       |   **T**
-
-## Groups
-- A *group* ($G$) consists of a set $g$ and
-    operation $\dot$.
-    $$G = \langle g, \dot \rangle$$
-- A group satisfies four axioms:
-    1. $G$ is closed under $\dot$
-    2. $\dot$ is associative
-    3. $G$ contains an identity element $e$
-    4. $\forall x \in g$ there is an $x^{-1}$ 
-        such that $x \dot x^{-1} = e$
-- If the operation $\dot$ is also commutative,
-    $G$ is called an **Abelian Group**
-
-
-## Semigroup
-- $H = \langle h, \dot \rangle$ is a *semigroup* iff:
-    1. $H$ is closed under $\dot$
-    2. $\dot$ is associative
-
-## Subgroups
-- $G'$ is a *subgroup* of $G$ iff:
-    1. $G'$ is a group
-    2. $\forall a, b \in G'$ we have $a, b \in G$
+| if $\ast$     | Semigroup | Monoid    | Group     | Abelian | 
+|:-----         | :-----:   | :-----:   | :-----:   | :-----: | 
+|is closed      |   **T**   |   **T**   |   **T**   |   **T** | 
+|is associative |   **T**   |   **T**   |   **T**   |   **T** | 
+|has identity   |   F       |   **T**   |   **T**   |   ?     | 
+|has inverse    |   F       |   F       |   **T**   |   ?     | 
+|is commutative |   ?       |   ?       |   ?       |   **T** | 
 
 ## Examples
 - Z, Q, R and C are abelian groups under addition,
@@ -47,11 +27,6 @@ is commutative  |   F       |   F       |   F       |   **T**
     form a monoid under multiplication (many singular matrices).
 - The dihedral group:
     $D_4 = \{I, R, R^2, R^3, T_x, T_y , T_{1,3}, T_{2,4}\}$
-
-## Monoid
-- All monoid can be reasonably folded
-- $H = \langle h, \dot \rangle$ is a **monoid** iff: 
-    1. $H$ is closed under $\dot$
 
 ## Functor
 - Functor is another kind of algebra
@@ -81,9 +56,9 @@ is commutative  |   F       |   F       |   F       |   **T**
 ## Monads
 - The Monad Laws:
     1. Left identity
-        `pure <=< f     == f`
+        `pure <=< f == f`
     2. Right identity
-        `f <=< pure     == f`
+        `f <=< pure == f`
     3. Associativity
         `f <=< (g <=< x)== (f <=< g) <=< x`
 - Every Monad is Applicative, and every Applicative is a
