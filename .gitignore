@@ -7,6 +7,7 @@
 *.o
 *.so
 *.hi
+*.out
 
 # Packages #
 ############
@@ -26,3 +27,4 @@
 *.pdf
 *.png
 *.svg
+*.html
