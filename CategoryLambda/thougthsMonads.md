@@ -4,6 +4,7 @@ author: Daniel Sanchez
 ---
 
 ## Applications of Monads
+- Mathematically all monads are functors.
 - Monads are programmable semicolons.
 - *Haskell so loved the `world -> (a, world)` that gave us the monad.*
 - In Haskell, `main` is `main :: IO ()` or `main :: () -> IO ()`. So, a
