@@ -8,7 +8,7 @@ instance (Show a) => Show (Tree a) where
     show (Leaf a)   = "[" ++ show a ++ "]"
     show (Node l r) = "(" ++ show l ++ " - " ++ show r ++ ")"
 
-relabel :: (Tree a) -> Int -> (Tree Int, Int)
+relabel :: Tree a -> Int -> (Tree Int, Int)
 relabel (Leaf _)    n = (Leaf n, succ n)
 relabel (Node l r)  n = (Node l' r', n'')
     where (l', n')  = relabel l n
@@ -16,7 +16,7 @@ relabel (Node l r)  n = (Node l' r', n'')
 
 -- And now, using State Monads
 app :: ST a -> Int -> ST Int
-app (S st) s = st s
+app (S st) = st
 
 fresh :: ST Int
 fresh = S (\n -> (n, succ n))
