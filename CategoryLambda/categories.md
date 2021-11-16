@@ -25,11 +25,15 @@ Category theory says that for any given category there must be some sort of
 composition operator, say (·).
 
 - First Law: This composition operator is associative
-    > f · (g · h) = (f · g) · h
-- Second Law: This composition operator must have a left and right identity
-    > I · f = f
-    > f · I = f
+```haskell
+f · (g · h) = (f · g) · h
+```
 
+- Second Law: This composition operator must have a left and right identity
+```haskell
+I · f = f
+f · I = f
+```
 
 ## The function category in Haskell
 
@@ -96,4 +100,4 @@ m >>= (\y -> g y >>= f) == (m >>= g) >>= f
 ## References
 
 - [Peeling the banana: Recursion Schemes from first principles](https://www.youtube.com/watch?v=XZ9nPZbaYfE)
-- [The Category design Pattern](https://www.haskellforall.com/2012/08/the-category-design-pattern.htm
+- [The Category design Pattern](https://www.haskellforall.com/2012/08/the-category-design-pattern.htm)
