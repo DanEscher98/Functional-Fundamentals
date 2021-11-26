@@ -58,6 +58,15 @@ instance Monad (State s) where
     sa >>= k = State (\s -> let (a, s') = runState sa s
                             in runState (k a) s')
     return a = State (\s -> (a, s))
+
+instance Monad (State s) where 
+   return x = State $ \s -> (x,s)
+   (State h) >>= f = State g
+       where g s0 = (b, s2) -- result of second runState
+                 where (a, s1) = h s0 -- run through first runState
+                       -- create second state with the output of the first
+                       State f' = f a
+                       (b, s2) = f' s1 -- run through second runState
 ```
 
 ### Reader Monad
