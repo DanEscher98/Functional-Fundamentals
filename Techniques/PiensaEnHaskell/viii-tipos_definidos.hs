@@ -50,3 +50,21 @@ numTerminalNodes Hoja         = 0
 numTerminalNodes (Fruta _)    = 1
 numTerminalNodes (Rama _ l r) =
     numTerminalNodes l + numTerminalNodes r
+
+numNodes :: Arbol a -> Int
+numNodes Hoja         = 0
+numNodes (Fruta _)    = 1
+numNodes (Rama _ l r) = succ (numNodes l + numNodes r)
+
+
+classify :: (a -> Bool) -> [a] -> ([a], [a])
+classify p xs = loop p xs ([], []) where
+    loop _ [] y = y
+    loop p (x:xs) (ls, rs)
+        | p x = loop p xs (ls, x:rs)
+        | otherwise = loop p xs (x:ls, rs)
+
+quicksort :: (Ord a) => [a] -> [a]
+quicksort [] = []
+quicksort (x:xs) = quicksort rElem ++ [x] ++ quicksort lElem
+    where (lElem, rElem) = classify (<x) xs
