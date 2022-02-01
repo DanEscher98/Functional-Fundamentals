@@ -6,9 +6,11 @@ import           Data.Char     (toUpper)
 writeFunk :: FilePath -> FilePath -> IO ()
 writeFunk ifile ofile = do
     contents <- readFile ifile
-    let newContents = map toUpper contents
+    let fileLines = lines contents
+    let newContents = map toUpper $ unlines . take 2 $ fileLines
     when (length newContents > 0) $
         writeFile ofile newContents
+
 
 main :: IO ()
 main = do
