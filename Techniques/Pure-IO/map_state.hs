@@ -66,3 +66,4 @@ addAnIncrementingAmount'' ns =
 
 -- REFERENCES:
 --      https://tomphp.github.io/blog/haskell-mapping-with-state
+--      https://stackoverflow.com/questions/54117352/unable-to-understand-how-state-monad-get-its-state-in-this-code
