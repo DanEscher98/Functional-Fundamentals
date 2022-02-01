@@ -1,8 +1,9 @@
-TARGET = parenthesis
+TARGET = wordsfreq
 
-
-run: $(TARGET).hs
+$(TARGET).out: $(TARGET).hs
 	ghc $(TARGET).hs -o $(TARGET).out
+
+run: $(TARGET).out
 	./$(TARGET).out
 
 clear:
