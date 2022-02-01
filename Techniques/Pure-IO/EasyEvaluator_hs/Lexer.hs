@@ -7,6 +7,7 @@ module Lexer (
     ) where
 
 import           Data.Char
+
 data Operator = Add | Sub | Mul | Div
     deriving (Show, Eq)
 
@@ -20,16 +21,18 @@ data Token
     | TokEnd
     deriving (Show, Eq)
 
+-- Equivalent to HEAD
 lookAhead :: [Token] -> Token
 lookAhead []     = TokEnd
 lookAhead (t:ts) = t
 
+-- Equivalent to TAIL
 accept :: [Token] -> [Token]
 accept []     = error "Nothing to accept"
 accept (_:ts) = ts
 
--------------------
--- TOKENIZE -------
+--------------------------------------
+-- TOKENIZE --------------------------
 
 tokenize :: String -> [Token]
 tokenize [] = []

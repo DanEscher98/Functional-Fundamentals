@@ -1,4 +1,4 @@
-module Evaluator where
+module Evaluator (SymTab, evaluate) where
 
 import qualified Data.Map as Map
 import           Lexer
