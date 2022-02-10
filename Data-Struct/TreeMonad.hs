@@ -13,7 +13,7 @@ instance Functor SimpleTree where
     fmap f (SNode x lt rt) =
         SNode (f x) (fmap f lt) (fmap f rt)
 
--- Good as Functor and Monad, Bad as Applicative
+-- GOOD as FUNCTOR and MONAD, BAD as APPLICATIVE
 data BinaryTree a
     = BFruit a
     | BNode (BinaryTree a) (BinaryTree a)
@@ -35,8 +35,16 @@ instance Applicative BinaryTree where
 instance Monad BinaryTree where
     (BFruit x) >>= f    = f x
     (BNode lt rt) >>= f = BNode (lt >>= f) (rt >>= f)
+    -- The tree blossoms with bind
 
--- Good as Functor, Applicative and Monad
+binaryTreeTest :: IO ()
+binaryTreeTest = do
+    let tree1 = BNode (BFruit 3) (BNode (BFruit 4) (BFruit 5))
+    print (fmap (*2) tree1)
+    print ((BFruit (/2)) <*> tree1)
+    print (tree1 >>= (\x -> BFruit (x + 5)))
+
+-- GOOD as FUNCTOR, as APPLICATIVE and MONAD
 data MultiTree a = MNode a [MultiTree a] deriving (Show)
 
 instance Functor MultiTree where
@@ -51,6 +59,7 @@ instance Applicative MultiTree where
 instance Monad MultiTree where
     (MNode x ts) >>= f = MNode x' (ts' ++ map (>>= f) ts)
         where (MNode x' ts') = f x
+    -- Each Node has its value changed and new children
 
 multiTreeTest :: IO ()
 multiTreeTest = do
@@ -58,7 +67,7 @@ multiTreeTest = do
     let tree2 = (MNode 'a' [MNode 'b' [], MNode 'c' []])
     print (fmap (*2) tree1)
     print ((MNode (*2) [MNode (+100) [], MNode (/10) []]) <*> tree1)
-    print (tree1 >>= (\x -> MNode (x + 2) []))
+    print (tree1 >>= (\x -> MNode (x + 2) [MNode (x * 3) []]))
 
 
     {- REFERENCES

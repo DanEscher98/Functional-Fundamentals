@@ -6,10 +6,12 @@ author: Daniel Sanchez
 ## Applications of Monads
 - Mathematically all monads are functors.
 - Monads are programmable semicolons.
-- *Haskell so loved the `world -> (a, world)` that gave us the monad.*
+- For Haskell so loved the `world -> (a, world)` that it gave us the
+    `IO Monad`, that whosoever composes with it should not be impure,
+    but free of side effects.
 - In Haskell, `main` is `main :: IO ()` or `main :: () -> IO ()`. So, a
     Haskell program is just one big Kleisli arrow in the `IO` monad.
-- In game programming, when a computer plays against a human, it can’t
+- In game programming, when a computer plays against a human, it can't
     predict the opponent’s next move. It can, however, generate a list
     of all possible moves and analyze them one by one.
 - A function that has has read-only access to some external state, or 
@@ -22,7 +24,39 @@ author: Daniel Sanchez
     `getChar` with another *Kleisli* arrow, but this second arrow could
     only return his value as an `IO a` (a supperposition of all possible
     `a` values). *There is no* `runIO`.
-
+- If the program is purely functional, we can mathematically combine
+    smaller programs to make complex ones and reason about the
+    soundness and correctness of a program.
+- A _Monad_ is a new type that the language knows how to treat when
+    composing functions. They can encapsulate side effects or just
+    purely functional computations and making function composition
+    possible.
+- Generally, Category Theory helps Computer Science by discovering
+    “computational patterns”. Category Theory discovers them and studies
+    them in order to find their mathematical properties. Then, Computer
+    Science can make use of this knowledge in order to empower
+    developers to create software in a more concise and more correct
+    way.
+- `Type ~> Functor ~> Applicative Functor ~> Monad`
+    - `fmap :: (a -> b) -> F a -> F b` lifts a function. _If you will
+        gave me a blueberry for each apple I gave you_ `(a -> b)` _,
+        and I have a box of apples_ `(F a)` _, then I can get a box of
+        blueberries_ `(F b)`.
+    - `pure :: a -> M a` lifts a type to the _M_ realm, it's a NT.
+        _If I have an apple_ `(a)` _then I can put it in a box_
+        `(M a)`.
+    - `(<*>) :: M (a -> b) -> M a -> M b`
+    - `join :: M (M a) -> M a` _If I have a box of apples_ `M (M a)`
+        _then I can take the apples from each, and put them in a new
+        box_ `(M a)`.
+    - `(>>=) :: M a -> (a -> M b) -> M b` provides a way to compose
+        functions. It's a Natural Transformation (NT). _If I have a 
+        box of apples_ `(M a)` _and for each apple you will give me a
+        box of blueberries_ `(a -> M b)` _then I can get a box with
+        all the blueberries together_ `(M b)`.
+        ```haskell
+        xs >>= f = join (fmap f xs)
+        ```
 
 ## Code Examples
 
@@ -32,9 +66,13 @@ instance Monad [] where
     join     = concat
     return x = [x]
     as >>= k = concat (fmap k as)
+
+liftM :: (Monad m) => (a -> b) -> m a -> m b
+liftM f xs = xs >>= (return . f)
+liftM f xs = do x <- xs
+                return (f x)
 ```
 
-### Maybe Monad
 ```haskell
 instance Monad Maybe where
     Nothing >>= k = Nothing
@@ -46,27 +84,13 @@ instance Monad Maybe where
 ```haskell
 newtype State s a = State (s -> (a, s))
 runState :: State s a -> s -> (a, s)
-runState (State f) s = f s
-
 get :: State s s
-get = State (\s -> (s, s))
-
 put :: s -> State s ()
-put s' = State (\s -> ((), s'))
 
 instance Monad (State s) where
     sa >>= k = State (\s -> let (a, s') = runState sa s
                             in runState (k a) s')
     return a = State (\s -> (a, s))
-
-instance Monad (State s) where 
-   return x = State $ \s -> (x,s)
-   (State h) >>= f = State g
-       where g s0 = (b, s2) -- result of second runState
-                 where (a, s1) = h s0 -- run through first runState
-                       -- create second state with the output of the first
-                       State f' = f a
-                       (b, s2) = f' s1 -- run through second runState
 ```
 
 ### Reader Monad
@@ -98,3 +122,9 @@ instance Monad (Cont r) where
     return a = Cont (\ha -> ha a)
 ```
 
+## REFERENCES
+
+- [A monad is just a ...](https://stackoverflow.com/questions/3870088/a-monad-is-just-a-monoid-in-the-category-of-endofunctors-whats-the-problem)
+- [The correspondence between Monads in CT and Haskell](https://dkalemis.wordpress.com/2013/11/23/the-correspondence-between-monads-in-category-theory-and-monads-in-haskell/)
+- [Monads as containers](https://wiki.haskell.org/Monads_as_containers)
+- [Monads as computations](https://wiki.haskell.org/Monads_as_computation)
