@@ -15,3 +15,15 @@ writeFunk ifile ofile = do
 main :: IO ()
 main = do
     writeFunk "ifile.txt" "ofile.txt"
+
+-- loop :: SymTab -> IO ()
+-- loop symtab = do
+--     str <- getLine
+--     if null str
+--        then return ()
+--        else let toks = tokenize str
+--                 tree = parse toks
+--                 (val, symtab') = evaluate tree symtab
+--              in do
+--                 print val
+--                 loop symtab'

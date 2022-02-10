@@ -64,6 +64,38 @@ addAnIncrementingAmount'' :: [Int] -> [Int]
 addAnIncrementingAmount'' ns =
     evalState (mapM addAmount'' $ ns) 0
 
+factorial :: Int -> [Int]
+factorial n = evalState (mapM fac [1..n]) 1 where
+    fac :: Int -> State Int Int
+    fac n = do
+        modify (*n)
+        n' <- get
+        return n'
+
+factorial' :: Int -> Int
+factorial' 0 = 1
+factorial' n = evalState (fac n) (1, 1) where
+    fac :: Int -> State (Int, Int) Int
+    fac n = do
+        (i, cache) <- get
+        if i == n
+           then return (i*cache)
+           else do
+               put (succ i, i*cache)
+               fac n
+
+fibonacci :: Int -> Int
+fibonacci n = evalState (fib n) (0, 1) where
+    fib :: Int -> State (Int, Int) Int
+    fib n = do
+        (a, b) <- get
+        if n == 0
+           then return a
+           else do
+               put (b, a+b)
+               fib (pred n)
+
 -- REFERENCES:
 --      https://tomphp.github.io/blog/haskell-mapping-with-state
 --      https://stackoverflow.com/questions/54117352/unable-to-understand-how-state-monad-get-its-state-in-this-code
+--      https://williamyaoh.com/posts/2020-07-12-deriving-state-monad.html

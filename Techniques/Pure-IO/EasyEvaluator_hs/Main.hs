@@ -1,12 +1,12 @@
 module Main where
 
-import qualified Data.Map      as Map
+import qualified Data.Map            as Map
 
-import           Control.Monad (when)
-import           Data.Char     (toUpper)
-import           Evaluator     (SymTab, evaluate)
-import           Lexer         (tokenize)
-import           Parser        (parse)
+import           Control.Monad.State
+import           Evaluator           (SymTab, evaluate)
+import           Lexer               (tokenize)
+import           Parser              (parse)
+import           System.Environment
 
 
 constants = Map.fromList
@@ -15,25 +15,27 @@ constants = Map.fromList
     , ("phi", (1 + sqrt 5) / 2)
     ]
 
-loop :: SymTab -> IO ()
-loop symtab = do
-    str <- getLine
-    if null str
-       then return ()
-       else let toks = tokenize str
-                tree = parse toks
-                (val, symtab') = evaluate tree symtab
-             in do
-                print val
-                loop symtab'
+evalLoop :: String -> State SymTab String
+evalLoop expression = do
+    symtab <- get
+    let toks = tokenize expression
+        tree = parse toks
+        (val, symtab') = evaluate tree symtab
+     in do
+         put symtab'
+         return (expression ++ " => " ++ show val)
+
+interpreter :: FilePath -> IO ()
+interpreter file = do
+    contents <- readFile file
+    let fileLines = filter (not . null) . lines $ contents
+     in do putStrLn
+           . unlines
+           . evalState (mapM evalLoop fileLines)
+           $ constants
 
 main :: IO ()
-main = do loop constants
-
-writeFunk :: FilePath -> FilePath -> IO ()
-writeFunk ifile ofile = do
-    contents <- readFile ifile
-    let fileLines = lines contents
-    let newContents = map toUpper $ unlines . take 2 $ fileLines
-    when (length newContents > 0) $
-        writeFile ofile newContents
+main = do
+    args <- getArgs
+    let fileName = args !! 1
+     in interpreter "expressions.math"
