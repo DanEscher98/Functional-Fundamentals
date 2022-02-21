@@ -19,11 +19,10 @@ evalLoop :: String -> State SymTab String
 evalLoop expression = do
     symtab <- get
     let toks = tokenize expression
-        tree = parse toks
-        (val, symtab') = evaluate tree symtab
-     in do
-         put symtab'
-         return (expression ++ " => " ++ show val)
+    let tree = parse toks
+    let (val, symtab') = evaluate tree symtab
+    put symtab'
+    return (expression ++ " => " ++ show val)
 
 interpreter :: FilePath -> IO ()
 interpreter file = do
