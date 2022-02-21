@@ -38,4 +38,4 @@ main :: IO ()
 main = do
     args <- getArgs
     let fileName = args !! 1
-     in interpreter "expressions.math"
+     in interpreter "expressions.txt"

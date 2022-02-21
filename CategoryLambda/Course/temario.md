@@ -28,5 +28,16 @@
 - Draw Graphics
 - ...
 
+## Haskell step by step
+
+1. Classic higher order functions:
+    - Arithmetic: 
+    - Lists: `map foldl `
+
+
+## REFERENCES
+
+- [Learn You a Haskell for Great Good!](https://learnyouahaskell.github.io/chapters.html)
+- [100 lengths in Haskell](https://github.com/edahlgren/100-lengths-in-Haskell)
 [ ('a', 3), ('e', 1), ('i', 1), ('m', 2)
 , ('n', 1), ('o', 1), ('r', 1), ('t', 1) ]

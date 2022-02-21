@@ -4,11 +4,36 @@ author: Daniel Sanchez
 ---
 
 ## Applications of Monads
-- Mathematically all monads are functors.
-- Monads are programmable semicolons.
 - For Haskell so loved the `world -> (a, world)` that it gave us the
     `IO Monad`, that whosoever composes with it should not be impure,
     but free of side effects.
+- They have three properties that make them useful:
+    1. Modularity: They allow computations to be composed from simpler
+       computations and separate the combination strategy from the
+       actual computations being performed.
+    2. Flexibility: They allow functional programs to be much more
+       adaptable than equivalent programs written without monads. This
+       is because the monad distills the computational strategy into a
+       single place instead of requiring it be distributed throughout
+       the entire program.
+    3. Isolation: They can be used to create imperative-style
+       computational structures which remain safely isolated from the
+       main body of the functional program. This is useful for
+       incorporating side-effects which remain safely isolated from
+       the main body of the functional program. This is useful for
+       incorporating side-effects and state into a pure functional
+       language.
+- Mathematically all monads are functors.
+- Monads are programmable semicolons.
+- Monads are like *burritos*. A functor `F` takes each type `T` and
+    maps it to a new type `F(T)`. A burrito takes a type, meat or
+    beans, and turns it into a new type, like beef burrito.
+    - functor: burrito
+    - map: you can add onion to beans, so also to a bean burrito
+    - pure: the tortilla which lifts any type to a burrito.
+    - join: if I had burrito burrito, I can unwrap the inner burrito
+- Think of monads as _statically typed filters_ in the Unix sense of
+    "pipes and filters".
 - In Haskell, `main` is `main :: IO ()` or `main :: () -> IO ()`. So, a
     Haskell program is just one big Kleisli arrow in the `IO` monad.
 - In game programming, when a computer plays against a human, it can't
@@ -45,7 +70,7 @@ author: Daniel Sanchez
     - `pure :: a -> M a` lifts a type to the _M_ realm, it's a NT.
         _If I have an apple_ `(a)` _then I can put it in a box_
         `(M a)`.
-    - `(<*>) :: M (a -> b) -> M a -> M b`
+    - `(<*>) :: M (a -> b) -> M a -> M b` applies a function
     - `join :: M (M a) -> M a` _If I have a box of apples_ `M (M a)`
         _then I can take the apples from each, and put them in a new
         box_ `(M a)`.
