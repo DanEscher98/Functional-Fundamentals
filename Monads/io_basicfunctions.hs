@@ -1,4 +1,6 @@
 module Main (main) where
+import           Control.Monad
+import           Control.Monad.State
 import           Data.Char
 import           System.Directory
 import           System.IO
@@ -28,11 +30,20 @@ prompt text = do
     getLine
 
 tomaLinea :: IO String
-tomaLinea = getChar >>=
-    (\c -> if c=='\n'
-            then return ""
-            else tomaLinea >>=
-                (\s -> return (c:s)))
+tomaLinea = do
+    c <- getChar
+    guard (c /= '\n')
+    s <- tomaLinea
+    return (c:s)
 
 ponLinea :: String -> IO ()
 ponLinea = foldr ((>>) . putChar) (putChar '\n')
+
+sumFoldState :: [Int] -> State Int ()
+sumFoldState = foldr ((>>) . (modify . (+))) (return ())
+
+reverseListSt :: [a] -> State [a] ()
+reverseListSt = foldr ((>>) . (modify . (:))) (return ())
+
+lastElem :: [a] -> State a ()
+lastElem = foldr ((>>) . put) (return ())
