@@ -8,20 +8,21 @@ import           System.IO.Unsafe
 
 main :: IO ()
 main = do
-    s <- prompt "Set your name: "
-    putStrLn ("Hello " ++ s)
+    name <- prompt "Set your name: "
+    let greeting = "Hello " ++ name ++ "!"
+    putStrLn greeting
     ifile <- getValidFile "Input file: "
     ofile <- getValidFile "Output file: "
     s <- readFile ifile
     writeFile ofile (map toLower (filter (not . isNumber) s))
     putStrLn "Goodbye!"
 
-
 getValidFile :: String -> IO String
-getValidFile text
-    | unsafePerformIO . doesFileExist $ s = return s
-    | otherwise = getValidFile "Try again: "
-        where s = unsafePerformIO . prompt $ text
+getValidFile text = do
+    file <- prompt text
+    exists <- doesFileExist file
+    if exists then return file
+              else getValidFile "Try again: "
 
 prompt :: String -> IO String
 prompt text = do
