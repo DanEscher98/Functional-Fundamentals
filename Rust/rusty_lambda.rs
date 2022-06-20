@@ -13,7 +13,7 @@ trait TermLam {
 // Blanket implementation for appropriate types
 impl<F> TermLam for F
 where
-    F: 'static/*' highlighting fix */ + Clone + FnOnce(Term) -> Term,
+    F: 'static /*' highlighting fix */ + Clone + FnOnce(Term) -> Term,
 {
     // Note: when you have a Clone + FnOnce, you effectively have an Fn
     fn app(&self, t: Term) -> Term {
@@ -47,7 +47,7 @@ impl Term {
 
     fn lam<F>(f: F) -> Self
     where
-        F: 'static/*' highlighting fix */ + Clone + FnOnce(Term) -> Term,
+        F: 'static /*' highlighting fix */ + Clone + FnOnce(Term) -> Term,
     {
         Lam(Box::new(f))
     }
@@ -64,7 +64,7 @@ impl Term {
             Lam(bod) => {
                 let bod = bod.clone();
                 Term::lam(move |v| bod.app(v).reduce())
-            },
+            }
             // We reuse the reduced object when possible,
             // to avoid unnecessary clone.
             App(fun, arg) => match fun.reduce() {

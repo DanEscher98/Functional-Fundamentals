@@ -33,3 +33,32 @@ title: Haskell Competence
 - Parametrized types
 - Concurrency (STM, MVar, threads)
 - Laziness and its implications
+
+## Exercises
+
+### Piensa en Haskell
+
+1. Introduccion a la porgramacion funcional
+2. Definiciones por compresion
+3. Definiciones por recursion
+4. Definiciones por recursion y por compresion
+5. Funciones sobre cadenas
+6. Funciones de orden superior
+7. Listas infinitas
+8. Tipos definidos y de datos algebraicos
+9. Demostracion de propiedades por induccion
+10. Polinomios
+11. Vectores y matrices
+12. Relaciones binarias homogeneas
+13. Operaciones con conjuntos
+14. Grafos
+15. Casos de Estudio
+    - El cifrado Cesar
+    - Codificacion y transmision de mensajes
+    - Resolucion de problemas matematicos
+    - El 2011 y los numeros primos
+    - Combinatoria
+    - Calculo numerico
+    - Ecuacion con factoriales
+    - Cuadrados magicos
+    - Enumeraciones de los numeros racionales
