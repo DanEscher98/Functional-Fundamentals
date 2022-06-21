@@ -3,7 +3,7 @@
 
 # -- Create Document from Wikipedia page
 FILE="text"
-WORD="Bitcoin"
+WORD="Biology"
 alias translate="trans -brief"
 
 echo '---
