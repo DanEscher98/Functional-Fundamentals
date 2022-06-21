@@ -1,5 +1,17 @@
 module NumeroDo where
 
+    {-
+       Notion of Equality:
+        1. ∀x ∈ N → x = x :         equality is reflexive
+        2. ∀x,y ∈ N, x=y → y=x :    equality is symmetric
+        3. 
+
+        1. 
+        1. 0 ∈ N :                  zero is a natural number
+        2. ∀x ∈ N → S(x) ∈ N :      natural number are closed under S
+        5. ¬∃n ∈ N → S(n) = 0 :     0 is the sucessor of no natural number
+        -}
+
 data Numero = Zero | S Numero
 instance Show Numero where
     show Zero  = "0"
@@ -12,17 +24,17 @@ add a (S b) = add (S a) b
 mul :: Numero -> Numero -> Maybe Numero
 mul Zero _  = Just Zero
 mul _ Zero  = Just Zero
-mul a (S b) = mul a b >>= add a
+mul a (S b) = mul a b >>= (\n -> add a n)
 
 dec :: Numero -> Maybe Numero
 dec Zero  = Nothing
 dec (S x) = Just x
 
-eq :: Numero -> Numero -> Bool
-eq Zero Zero   = True
-eq (S _) Zero  = False
-eq Zero (S _)  = False
-eq (S a) (S b) = eq a b
+igual :: Numero -> Numero -> Bool
+igual Zero Zero   = True
+igual (S _) Zero  = False
+igual Zero (S _)  = False
+igual (S a) (S b) = igual a b
 
 menor :: Numero -> Numero -> Bool
 menor a Zero      = False
@@ -37,7 +49,7 @@ sub (S a) (S b) = sub a b
 qot :: Numero -> Numero -> Maybe Numero
 qot _ Zero = Nothing
 qot Zero _ = Just Zero
-qot a b | eq a b    = Just (S Zero)
+qot a b | igual a b    = Just (S Zero)
         | menor a b = Just Zero
         | otherwise = do
             x <- sub a b

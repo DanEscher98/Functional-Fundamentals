@@ -41,7 +41,7 @@ toma _ _    = error "Argumento negativo"
 -- Equivalente a drop
 tira :: Int -> [a] -> [a]
 tira _ [] = []
-tira n (x:xs)
+tira n (_:xs)
     | n >  0  = tira (pred n) xs
     | n == 0  = xs
 tira _ _  = error "Argumento negativo"

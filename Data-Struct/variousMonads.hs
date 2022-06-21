@@ -20,6 +20,8 @@ instance Monad Point where
 ---- LIST
 data Lista a = Nil | Cons a (Lista a)
 
+data Product a b = Pair { fst::a, snd::b }
+
 instance (Show a) => Show (Lista a) where
     show Nil         = ""
     show (Cons x xs) = show x ++ " " ++ show xs
