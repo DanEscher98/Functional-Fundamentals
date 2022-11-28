@@ -35,9 +35,14 @@ potencia de un binomio, siendo $n \in \mathbb{Z}^+$. $$(x + y)^n = \sum_{k=0}^n
 
 Combinando ambos conceptos, se llega a la conclusión de que la cardinalidad del
 conjunto potencia de $A$ se puede calcular con $2^n$, siendo $n = |A|$.
-$$\begin{aligned} (1 + 1)^n   &= \sum_{k=0}^n \binom{n}{k} 1^{n-k} 1^k \\ 2^n
-&= \sum_{k=0}^n \binom{n}{k} \\ 2^n         &= |\rho(A)| \\ \end{aligned}$$
+$$\begin{aligned}
+    (1 + 1)^n   &= \sum_{k=0}^n \binom{n}{k} 1^{n-k} 1^k \\
+    2^n         &= \sum_{k=0}^n \binom{n}{k} \\
+    2^n         &= |\rho(A)| \\
+\end{aligned}$$
 
-$$\log(a, b, p) = \begin{cases} 0 \quad &, a = 1 \\ x \quad &, p = 0 \\ x +
-\log( , b, p-1) \div 10 \\ \end{cases} \: \text{where} x = \mathrm{BiPLE}(b, a)
-$$
+$$\log(a, b, p) = \begin{cases}
+    0 \quad &, a = 1 \\
+    x \quad &, p = 0 \\
+    x + \log( , b, p-1) \div 10 \\
+\end{cases} \: \text{where} x = \mathrm{BiPLE}(b, a)$$
