@@ -1,2 +1,9 @@
 :set -package random
 :set -package UISF
+:set -Wno-type-defaults
+:set -Wno-name-shadowing
+:set -Wno-missing-signatures
+:set -Wno-dodgy-exports
+:set -Wno-missing-export-lists
+:set -Wno-unused-imports
+:set -Wno-unused-top-binds

@@ -24,6 +24,7 @@ dependencies:
 - HSoM >= 1.0.0
 - UISF >= 0.4.0.0
 - random
+- vector >= 0.13
 
 
 ghc-options:
